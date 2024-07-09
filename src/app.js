@@ -7,7 +7,7 @@ const api=require('./routers/api');
 const app= express();
 
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'https://mststore.netlify.app/'
 }))
 
 app.use(morgan('combined'));
