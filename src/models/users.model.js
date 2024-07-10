@@ -50,11 +50,11 @@ async function getLatestId() {
     const latestUser = await users
     .findOne()
     .sort('-id');
-    console.log('Latest ID: 'latestUser.id);
+    console.log('Latest ID: ',latestUser.id);
     return latestUser.id;
 }
 
-async find saveUser(newUser) {
+async function saveUser(newUser) {
     await users.findOneAndUpdate(
         {id: newUser.id},
         newUser,

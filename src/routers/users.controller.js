@@ -13,7 +13,7 @@ async function httpAddUser(req,res) {
     const user = req.body;
     console.log(user);
 
-    if(!user.id || !user.name || !user.email || !user.password) {
+    if(!user.name || !user.email || !user.password) {
         return res.status(400).json({
             error: 'Missing required user property',
         });
