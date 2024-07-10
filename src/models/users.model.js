@@ -22,7 +22,7 @@ async function loadUsersData() {
         },
         {upsert: true}
     );
-    console.log('Saved user', firstUser.name);
+    console.log('Saved user: ', firstUser.name);
 
     const count = (await getAllUsers()).length;
     console.log(`${count} users found!`);
