@@ -1,11 +1,12 @@
 const express = require('express');
 
-const {httpGetAllUsers, httpGetUser, httpAddUser} = require('./users.controller');
+const {httpGetAllUsers, httpGetUserById, httpGetUserByEmail, httpAddUser} = require('./users.controller');
 
 const usersRouter = express.Router();
 
 usersRouter.get('/',httpGetAllUsers);
-usersRouter.get('/:id',httpGetUser);
+usersRouter.get('/:id',httpGetUserById);
+usersRouter.get('/email/:email',httpGetUserByEmail);
 usersRouter.post('/',httpAddUser);
 
 module.exports = usersRouter;

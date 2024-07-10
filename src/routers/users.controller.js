@@ -1,17 +1,22 @@
-const {getAllUsers, getUser, addUser} = require('../models/users.model');
+const {getAllUsers, getUserById, getUserByEmail, addUser} = require('../models/users.model');
 
 async function httpGetAllUsers(req,res) {
     return res.status(200).json(await getAllUsers());
 }
 
-async function httpGetUser(req,res) {
+async function httpGetUserById(req,res) {
     const id = Number(req.params.id);
-    return res.status(200).json(await getUser(id));
+    return res.status(200).json(await getUserById(id));
 }
 
+async function httpGetUserByEmail(req,res) {
+    const email = req.params.email;
+    return res.status(200).json(await getUserByEmail(email));
+}
 async function httpAddUser(req,res) {
     const user = req.body;
-    console.log(user);
+    console.log(user); server
+
 
     if(!user.name || !user.email || !user.password) {
         return res.status(400).json({
@@ -25,6 +30,7 @@ async function httpAddUser(req,res) {
 
 module.exports = {
     httpGetAllUsers,
-    httpGetUser,
+    httpGetUserById,
+    httpGetUserByEmail,
     httpAddUser,
 }

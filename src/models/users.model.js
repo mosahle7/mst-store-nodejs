@@ -39,8 +39,15 @@ async function getAllUsers() {
     });
 }
 
-async function getUser(id) {
+async function getUserById(id) {
     return await users.find({id: id}, {
+        '_id':0,
+        '__v':0,
+    });
+}
+
+async function getUserByEmail(email) {
+    return await users.find({email: email}, {
         '_id':0,
         '__v':0,
     });
@@ -78,7 +85,8 @@ async function addUser(user){
 module.exports = {
     loadUsersData,
     getAllUsers,
-    getUser,
+    getUserById,
+    getUserByEmail,
     addUser
 };
 
