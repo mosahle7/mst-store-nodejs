@@ -1,4 +1,5 @@
 const users = require('./users.mongo');
+const bcrypt = require('bcrypt');
 
 const firstUser= {
     id: 1,
@@ -8,8 +9,10 @@ const firstUser= {
     
 }
 
+
 async function loadUsersData() {
     try{
+    const hPassword= await hashPassword(firstUser.password)
     await users.updateOne(
         {id: firstUser.id},
         {
@@ -17,7 +20,7 @@ async function loadUsersData() {
                 id: firstUser.id,
                 name: firstUser.name,
                 email: firstUser.email,
-                password: firstUser.password
+                password: hPassword,
             }
         },
         {upsert: true}
@@ -69,12 +72,21 @@ async function saveUser(newUser) {
     )
 }
 
+const saltRounds = 10;
+
+async function hashPassword(password) {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password,salt);
+    return hashedPassword;
+}
+
 async function addUser(user){
     const existingUser = await getUserByEmail(user.email);
     if (existingUser.length > 0) {
         throw new Error('Email already exists!');
     }
-
+    user.password = await hashPassword(user.password);
+    
     const latestId = await getLatestId();
     const newUser = {
         id: latestId + 1,
@@ -85,14 +97,19 @@ async function addUser(user){
     await saveUser(newUser);
 }
 
-
+async function verifyPassword(enteredPassword, hashedPassword) {
+    const match = await bcrypt.compare(enteredPassword, hashedPassword);
+    return match;
+}
 
 module.exports = {
     loadUsersData,
     getAllUsers,
     getUserById,
     getUserByEmail,
-    addUser
+    addUser,
+    hashPassword,
+    verifyPassword,
 };
 
 
