@@ -70,6 +70,11 @@ async function saveUser(newUser) {
 }
 
 async function addUser(user){
+    const existingUser = await getUserByEmail(user.email);
+    if (existingUser) {
+        throw new Error('Email already exists!');
+    }
+
     const latestId = await getLatestId();
     const newUser = {
         id: latestId + 1,
