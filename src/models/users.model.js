@@ -71,7 +71,7 @@ async function saveUser(newUser) {
 
 async function addUser(user){
     const existingUser = await getUserByEmail(user.email);
-    if (existingUsers.length > 0) {
+    if (existingUser.length > 0) {
         throw new Error('Email already exists!');
     }
 
