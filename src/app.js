@@ -6,9 +6,17 @@ const path = require('path');
 const api=require('./routers/api');
 const app= express();
 
+// app.use(cors({
+//     origin: '*'
+// }))
+
 app.use(cors({
-    origin: '*'
-}))
+    origin: '*', // Allow all origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 204
+}));
 
 app.use(morgan('combined'));
 
