@@ -15,7 +15,7 @@ async function httpGetUserByEmail(req,res) {
 }
 async function httpAddUser(req,res) {
     const user = req.body;
-    console.log(user); server
+    console.log(user); 
 
 
     if(!user.name || !user.email || !user.password) {
