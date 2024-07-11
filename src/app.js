@@ -7,7 +7,7 @@ const api=require('./routers/api');
 const app= express();
 
 app.use(cors({
-    origin: true
+    origin: '*'
 }))
 
 app.use(morgan('combined'));
